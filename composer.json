@@ -11,6 +11,7 @@
     "symfony/framework-bundle": "^6.4",
     "symfony/security-bundle": "^6.4",
     "symfony/security-http": "^6.4",
+    "symfony/yaml": "^6.4 || ^7.1",
     "tourze/json-rpc-core": "^0.0.6"
   },
   "autoload": {
