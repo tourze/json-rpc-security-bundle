@@ -66,11 +66,11 @@ class IntegrationTestKernel extends BaseKernel
 
     public function getCacheDir(): string
     {
-        return $this->getProjectDir() . '/var/cache/' . $this->environment;
+        return sys_get_temp_dir() . '/JsonRPCSecurityBundle/cache';
     }
 
     public function getLogDir(): string
     {
-        return $this->getProjectDir() . '/var/log';
+        return sys_get_temp_dir() . '/JsonRPCSecurityBundle/logs';
     }
 }
