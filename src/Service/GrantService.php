@@ -18,7 +18,7 @@ class GrantService
     public function checkProcedure(JsonRpcMethodInterface $procedure): void
     {
         foreach ((new \ReflectionClass($procedure))->getAttributes() as $attribute) {
-            /** @var \ReflectionAttribute $attribute */
+            /** @var \ReflectionAttribute<object> $attribute */
             if ($attribute->getName() === IsGranted::class || is_subclass_of($attribute->getName(), IsGranted::class)) {
                 $item = $attribute->newInstance();
                 /* @var IsGranted $item */
@@ -34,7 +34,7 @@ class GrantService
         }
 
         // 如果用户都没有，说明那就是没登录
-        if (!$this->security->getUser()) {
+        if ($this->security->getUser() === null) {
             throw new AccessDeniedException();
         }
         throw new ApiException('当前用户未获得访问授权', -3);

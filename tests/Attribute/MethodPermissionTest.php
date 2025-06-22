@@ -108,7 +108,5 @@ class MethodPermissionTest extends TestCase
     public function testTagNameConstant(): void
     {
         $this->assertEquals('json_rpc_http_server.method_permission', MethodPermission::JSONRPC_PERMISSION_TAG);
-        $this->assertIsString(MethodPermission::JSONRPC_PERMISSION_TAG);
-        $this->assertNotEmpty(MethodPermission::JSONRPC_PERMISSION_TAG);
     }
 }

@@ -16,11 +16,4 @@ class IsGrantSubscriberTest extends TestCase
         $this->assertInstanceOf(IsGrantSubscriber::class, $subscriber);
     }
 
-    public function testBeforeMethodApplyMethodExists(): void
-    {
-        $grantService = $this->createMock(GrantService::class);
-        $subscriber = new IsGrantSubscriber($grantService);
-        
-        $this->assertTrue(method_exists($subscriber, 'beforeMethodApply'));
-    }
 } 

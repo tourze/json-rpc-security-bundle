@@ -23,7 +23,6 @@ class JsonRPCSecurityIntegrationTest extends KernelTestCase
     protected function setUp(): void
     {
         $this->markTestSkipped('因为JsonRPCBundle不可用，集成测试无法运行');
-        self::bootKernel();
     }
 
     private function createTokenForUser(string $username, array $roles): void

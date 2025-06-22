@@ -18,13 +18,6 @@ class GrantServiceTest extends TestCase
         $this->assertInstanceOf(GrantService::class, $grantService);
     }
 
-    public function testCheckProcedureMethodExists(): void
-    {
-        $security = $this->createMock(Security::class);
-        $grantService = new GrantService($security);
-        
-        $this->assertTrue(method_exists($grantService, 'checkProcedure'));
-    }
 
     public function testCheckProcedure_withNoAttributes(): void
     {
