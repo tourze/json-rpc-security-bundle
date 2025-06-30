@@ -32,7 +32,7 @@ return [
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Tourze\JsonRPC\Core\Domain\JsonRpcMethodInterface;
 
-#[IsGranted("ROLE_ADMIN")]
+#[IsGranted(attribute: 'ROLE_ADMIN')]
 class AdminMethod implements JsonRpcMethodInterface
 {
     // ...

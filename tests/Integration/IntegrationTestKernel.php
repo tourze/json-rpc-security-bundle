@@ -17,7 +17,6 @@ class IntegrationTestKernel extends BaseKernel
     {
         yield new FrameworkBundle();
         yield new SecurityBundle();
-        // JsonRPCBundle不可用，跳过
         yield new JsonRPCSecurityBundle();
     }
 

@@ -22,7 +22,7 @@ class JsonRPCSecurityIntegrationTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        $this->markTestSkipped('因为JsonRPCBundle不可用，集成测试无法运行');
+        parent::setUp();
     }
 
     private function createTokenForUser(string $username, array $roles): void
@@ -44,7 +44,7 @@ class JsonRPCSecurityIntegrationTest extends KernelTestCase
     {
         // 创建一个需要ROLE_ADMIN权限的方法
         $adminMethod = new class() implements JsonRpcMethodInterface {
-            #[IsGranted('ROLE_ADMIN')]
+            #[IsGranted(attribute: 'ROLE_ADMIN')]
             public function dummy(): void
             {
             }
@@ -76,7 +76,7 @@ class JsonRPCSecurityIntegrationTest extends KernelTestCase
     {
         // 创建一个需要ROLE_ADMIN权限的方法
         $adminMethod = new class() implements JsonRpcMethodInterface {
-            #[IsGranted('ROLE_ADMIN')]
+            #[IsGranted(attribute: 'ROLE_ADMIN')]
             public function dummy(): void
             {
             }
@@ -110,7 +110,7 @@ class JsonRPCSecurityIntegrationTest extends KernelTestCase
     {
         // 创建一个需要ROLE_ADMIN权限的方法
         $adminMethod = new class() implements JsonRpcMethodInterface {
-            #[IsGranted('ROLE_ADMIN')]
+            #[IsGranted(attribute: 'ROLE_ADMIN')]
             public function dummy(): void
             {
             }

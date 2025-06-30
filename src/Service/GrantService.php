@@ -17,12 +17,27 @@ class GrantService
 
     public function checkProcedure(JsonRpcMethodInterface $procedure): void
     {
-        foreach ((new \ReflectionClass($procedure))->getAttributes() as $attribute) {
+        $reflectionClass = new \ReflectionClass($procedure);
+        
+        // 检查类级别的属性
+        foreach ($reflectionClass->getAttributes() as $attribute) {
             /** @var \ReflectionAttribute<object> $attribute */
             if ($attribute->getName() === IsGranted::class || is_subclass_of($attribute->getName(), IsGranted::class)) {
                 $item = $attribute->newInstance();
                 /* @var IsGranted $item */
                 $this->checkIsGranted($item);
+            }
+        }
+        
+        // 检查所有方法的属性
+        foreach ($reflectionClass->getMethods() as $method) {
+            foreach ($method->getAttributes() as $attribute) {
+                /** @var \ReflectionAttribute<object> $attribute */
+                if ($attribute->getName() === IsGranted::class || is_subclass_of($attribute->getName(), IsGranted::class)) {
+                    $item = $attribute->newInstance();
+                    /* @var IsGranted $item */
+                    $this->checkIsGranted($item);
+                }
             }
         }
     }
