@@ -2,12 +2,17 @@
 
 namespace Tourze\JsonRPCSecurityBundle\Tests\Attribute;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Tourze\JsonRPCSecurityBundle\Attribute\MethodPermission;
 
-class MethodPermissionTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(MethodPermission::class)]
+final class MethodPermissionTest extends TestCase
 {
-    public function testConstruct_withSimplePermission(): void
+    public function testConstructWithSimplePermission(): void
     {
         $permission = 'simple_permission';
         $title = 'Simple Title';
@@ -21,7 +26,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withEntityPermission(): void
+    public function testConstructWithEntityPermission(): void
     {
         $permission = 'Entity::action';
         $title = null;
@@ -35,7 +40,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withComplexEntityPermission(): void
+    public function testConstructWithComplexEntityPermission(): void
     {
         $permission = 'User::create::admin';
         $title = '创建用户权限';
@@ -45,7 +50,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withEmptyPermission(): void
+    public function testConstructWithEmptyPermission(): void
     {
         $permission = '';
         $title = 'Empty Permission Test';
@@ -55,7 +60,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withNullTitle(): void
+    public function testConstructWithNullTitle(): void
     {
         $permission = 'test_permission';
         $title = null;
@@ -65,7 +70,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withEmptyTitle(): void
+    public function testConstructWithEmptyTitle(): void
     {
         $permission = 'test_permission';
         $title = '';
@@ -75,7 +80,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withSpecialCharactersInPermission(): void
+    public function testConstructWithSpecialCharactersInPermission(): void
     {
         $permission = 'user:create-admin@system';
         $title = 'Special Characters Test';
@@ -85,7 +90,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withOnlyDoubleColons(): void
+    public function testConstructWithOnlyDoubleColons(): void
     {
         $permission = '::';
         $title = 'Double Colons Only';
@@ -95,7 +100,7 @@ class MethodPermissionTest extends TestCase
         $this->assertInstanceOf(MethodPermission::class, $attribute);
     }
 
-    public function testConstruct_withMultipleDoubleColons(): void
+    public function testConstructWithMultipleDoubleColons(): void
     {
         $permission = 'Entity::Sub::Action::Extra';
         $title = 'Multiple Double Colons';

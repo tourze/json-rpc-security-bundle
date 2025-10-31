@@ -2,17 +2,23 @@
 
 namespace Tourze\JsonRPCSecurityBundle\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tourze\JsonRPCSecurityBundle\DependencyInjection\JsonRPCSecurityExtension;
 use Tourze\JsonRPCSecurityBundle\EventSubscriber\IsGrantSubscriber;
 use Tourze\JsonRPCSecurityBundle\Service\GrantService;
+use Tourze\PHPUnitSymfonyUnitTest\AbstractDependencyInjectionExtensionTestCase;
 
-class JsonRPCSecurityExtensionTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(JsonRPCSecurityExtension::class)]
+final class JsonRPCSecurityExtensionTest extends AbstractDependencyInjectionExtensionTestCase
 {
-    public function testLoad_registerServices(): void
+    public function testLoadRegisterServices(): void
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.environment', 'test');
         $extension = new JsonRPCSecurityExtension();
 
         $extension->load([], $container);
@@ -28,9 +34,10 @@ class JsonRPCSecurityExtensionTest extends TestCase
         $this->assertTrue($container->getDefinition(GrantService::class)->isAutowired());
     }
 
-    public function testLoad_withEmptyConfig(): void
+    public function testLoadWithEmptyConfig(): void
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.environment', 'test');
         $extension = new JsonRPCSecurityExtension();
 
         // 使用空配置数组
@@ -41,9 +48,10 @@ class JsonRPCSecurityExtensionTest extends TestCase
         $this->assertTrue($container->has(GrantService::class));
     }
 
-    public function testLoad_withMultipleConfigs(): void
+    public function testLoadWithMultipleConfigs(): void
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.environment', 'test');
         $extension = new JsonRPCSecurityExtension();
 
         // 模拟多个配置块
@@ -55,24 +63,26 @@ class JsonRPCSecurityExtensionTest extends TestCase
         $this->assertTrue($container->has(GrantService::class));
     }
 
-    public function testLoad_serviceDefinitionsExist(): void
+    public function testLoadServiceDefinitionsExist(): void
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.environment', 'test');
         $extension = new JsonRPCSecurityExtension();
 
         $extension->load([], $container);
 
-        // 验证服务定义存在且非空
+        // 验证服务定义存在且配置正确
         $isGrantSubscriberDef = $container->getDefinition(IsGrantSubscriber::class);
         $grantServiceDef = $container->getDefinition(GrantService::class);
 
-        $this->assertNotNull($isGrantSubscriberDef);
-        $this->assertNotNull($grantServiceDef);
+        $this->assertEquals(IsGrantSubscriber::class, $isGrantSubscriberDef->getClass());
+        $this->assertEquals(GrantService::class, $grantServiceDef->getClass());
     }
 
-    public function testLoad_servicesArePrivate(): void
+    public function testLoadServicesArePrivate(): void
     {
         $container = new ContainerBuilder();
+        $container->setParameter('kernel.environment', 'test');
         $extension = new JsonRPCSecurityExtension();
 
         $extension->load([], $container);

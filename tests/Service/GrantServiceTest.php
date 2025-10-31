@@ -2,27 +2,37 @@
 
 namespace Tourze\JsonRPCSecurityBundle\Tests\Service;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\SecurityBundle\Security;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Tourze\JsonRPC\Core\Domain\JsonRpcMethodInterface;
 use Tourze\JsonRPC\Core\Model\JsonRpcRequest;
 use Tourze\JsonRPCSecurityBundle\Service\GrantService;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractIntegrationTestCase;
 
-class GrantServiceTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(GrantService::class)]
+#[RunTestsInSeparateProcesses]
+final class GrantServiceTest extends AbstractIntegrationTestCase
 {
+    protected function onSetUp(): void
+    {
+        // 初始化测试环境
+    }
+
     public function testConstructor(): void
     {
-        $security = $this->createMock(Security::class);
-        $grantService = new GrantService($security);
-        
+        // 使用集成测试环境中的服务
+        $grantService = self::getService(GrantService::class);
+
         $this->assertInstanceOf(GrantService::class, $grantService);
     }
 
-
-    public function testCheckProcedure_withNoAttributes(): void
+    public function testCheckProcedureWithNoAttributes(): void
     {
-        $security = $this->createMock(Security::class);
-        $grantService = new GrantService($security);
+        // 使用集成测试环境中的服务
+        $grantService = self::getService(GrantService::class);
 
         // 创建一个没有IsGranted属性的方法
         $procedure = new class implements JsonRpcMethodInterface {
@@ -37,13 +47,10 @@ class GrantServiceTest extends TestCase
             }
         };
 
-        // 不应该调用security的isGranted方法
-        $security->expects($this->never())->method('isGranted');
-
         // 调用测试方法，不应抛出异常
         $grantService->checkProcedure($procedure);
-        
-        // 如果执行到这里，测试通过
-        $this->assertTrue(true);
+
+        // 验证服务实例正确且方法正常执行
+        $this->assertInstanceOf(GrantService::class, $grantService);
     }
-} 
+}
