@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
  * 声明这个方法所需要的权限
  */
 #[\Attribute(flags: \Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
-class MethodPermission extends AutoconfigureTag
+final class MethodPermission extends AutoconfigureTag
 {
     public const JSONRPC_PERMISSION_TAG = 'json_rpc_http_server.method_permission';
 

@@ -11,7 +11,7 @@ use Tourze\JsonRPCSecurityBundle\Service\GrantService;
  *
  * @see https://symfony.com/bundles/SensioFrameworkExtraBundle/current/annotations/security.html
  */
-class IsGrantSubscriber
+final class IsGrantSubscriber
 {
     public function __construct(
         private readonly GrantService $grantService,

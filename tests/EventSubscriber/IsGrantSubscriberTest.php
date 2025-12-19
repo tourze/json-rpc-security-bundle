@@ -32,19 +32,6 @@ final class IsGrantSubscriberTest extends AbstractEventSubscriberTestCase
     {
         $subscriber = self::getService(IsGrantSubscriber::class);
 
-        // 创建一个实现了JsonRpcMethodInterface的匿名类对象
-        $method = new class implements JsonRpcMethodInterface {
-            public function __invoke(JsonRpcRequest $request): mixed
-            {
-                return [];
-            }
-
-            public function execute(): array
-            {
-                return [];
-            }
-        };
-
         // 使用 Reflection 验证 beforeMethodApply 方法的行为
         $reflection = new \ReflectionMethod($subscriber, 'beforeMethodApply');
         $this->assertTrue($reflection->isPublic(), 'beforeMethodApply should be public');

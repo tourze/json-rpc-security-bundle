@@ -4,7 +4,7 @@ namespace Tourze\JsonRPCSecurityBundle\DependencyInjection;
 
 use Tourze\SymfonyDependencyServiceLoader\AutoExtension;
 
-class JsonRPCSecurityExtension extends AutoExtension
+final class JsonRPCSecurityExtension extends AutoExtension
 {
     protected function getConfigDir(): string
     {
